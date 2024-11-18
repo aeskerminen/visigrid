@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/pixi.min.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      // Create the application helper and add its render target to the page
+      const app = new PIXI.Application();
+      await app.init({ width: 640, height: 360, backgroundColor: 0xaaaaaa });
+      document.body.appendChild(app.view);
+    </script>
+  </body>
+</html>
