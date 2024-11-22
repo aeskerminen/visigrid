@@ -8,6 +8,8 @@ const height = 700;
 let source = { x: 1, y: 1 };
 let target = { x: 18, y: 18 };
 
+let coords = { x: 0, y: 0 };
+
 const setupGrid = () => {
   for (let i = 0; i < width / gridSize; i++) {
     arr[i] = [];
@@ -18,6 +20,10 @@ const setupGrid = () => {
 
   arr[source.x][source.y] = "start";
   arr[target.x][target.y] = "end";
+};
+
+const renderClear = (ctx, canvas) => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
 const render = (ctx) => {
@@ -39,6 +45,9 @@ const render = (ctx) => {
       ctx.fillRect(i * gridSize, j * gridSize, gridSize - 2, gridSize - 2);
     }
   }
+
+  ctx.fillStyle = "rgba(200 200 200)";
+  ctx.fillRect(coords.x * gridSize, coords.y * gridSize, gridSize, gridSize);
 };
 
 const reset = () => {
@@ -60,6 +69,7 @@ const main = () => {
   render(ctx);
 
   setInterval(() => {
+    renderClear(ctx, canvas);
     render(ctx);
   }, 100);
 };
@@ -92,6 +102,13 @@ document.getElementById("canvas").addEventListener("click", (e) => {
   const fd = new FormData(document.getElementById("live-form"));
 
   arr[coords.x][coords.y] = fd.get("c");
+});
+
+document.getElementById("canvas").addEventListener("mousemove", (e) => {
+  coords = {
+    x: Math.floor(e.offsetX / gridSize),
+    y: Math.floor(e.offsetY / gridSize),
+  };
 });
 
 document.getElementById("run-button").onclick = (e) => {
