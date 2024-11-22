@@ -56,7 +56,7 @@ const djikstras = (source, target) => {
     const val = arr[coord.x][coord.y];
 
     if (val === "wall") {
-      return 1;
+      return Number.MAX_SAFE_INTEGER;
     } else if (val === "empty") {
       return 0;
     } else {
