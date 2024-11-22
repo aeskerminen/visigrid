@@ -155,9 +155,14 @@ const main = () => {
 
   setupGrid();
 
+  let nextGameTick = new Date().getTime();
+  let loops = 0;
+
   render(ctx);
-  djikstras();
-  render(ctx);
+
+  setInterval(() => {
+    render(ctx);
+  }, 100);
 };
 
 window.addEventListener("load", () => {
@@ -170,11 +175,15 @@ document.getElementById("form").onsubmit = (e) => {
   const fd = new FormData(e.target);
   console.log(fd);
 
-  const xc = Number(fd.xc);
-  const yc = Number(fd.yc);
-  const type = fd.type;
+  const xc = Number(fd.get("xc"));
+  const yc = Number(fd.get("yc"));
+  const type = fd.get("type");
 
-  if (xc >= 0 && xc < width / gridSize && y >= 0 && y < height / gridSize) {
-    arr[xc][yc] = type;
-  }
+  console.log(xc, yc);
+
+  arr[xc][yc] = type;
+};
+
+document.getElementById("run-button").onclick = (e) => {
+  djikstras();
 };
