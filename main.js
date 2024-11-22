@@ -136,7 +136,7 @@ const djikstras = () => {
   const S = [];
   let u = toIndex(target.x, target.y);
 
-  if (prev[u] || u == toIndex(source[0], source[1])) {
+  if (prev[u] || u == toIndex(source.x, source.y)) {
     while (u !== undefined) {
       S.push(u);
       u = prev[u];
@@ -154,9 +154,6 @@ const main = () => {
   const ctx = canvas.getContext("2d");
 
   setupGrid();
-
-  let nextGameTick = new Date().getTime();
-  let loops = 0;
 
   render(ctx);
 
