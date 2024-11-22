@@ -3,35 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <title>Grid</title>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
-    <canvas id="canvas" width="700" height="700"></canvas>
+    <canvas id="canvas" width="1000" height="1000"></canvas>
 
-    <form id="canvasparams-form">
-      <fieldset>
-        <legend>Change canvas settings</legend>
-      </fieldset>
-    </form>
+    <div id="form-parent">
+      <form id="gridparams-form">
+        <fieldset>
+          <legend>Change grid settings</legend>
+          <input value="2" min="2" max="30" type="number" name="cells" />
+          <label for="cells">Base of grid</label>
+        </fieldset>
+      </form>
 
-    <form id="liveedit-form">
-      <fieldset>
-        <legend>Choose a type (Live edit)</legend>
-        <input checked type="radio" id="empty" name="c" value="empty" />
-        <label for="empty">Empty</label>
+      <form id="liveedit-form">
+        <fieldset>
+          <legend>Choose a type (Live edit)</legend>
+          <input checked type="radio" id="empty" name="c" value="empty" />
+          <label for="empty">Empty</label>
 
-        <input type="radio" id="wall" name="c" value="wall" />
-        <label for="wall">Wall</label>
+          <input type="radio" id="wall" name="c" value="wall" />
+          <label for="wall">Wall</label>
 
-        <input type="radio" id="start" name="c" value="start" />
-        <label for="start">Start</label>
+          <input type="radio" id="start" name="c" value="start" />
+          <label for="start">Start</label>
 
-        <input type="radio" id="end" name="c" value="end" />
-        <label for="end">End</label>
-      </fieldset>
-    </form>
+          <input type="radio" id="end" name="c" value="end" />
+          <label for="end">End</label>
+        </fieldset>
+      </form>
 
-    <button id="run-button">RUN</button>
-    <button id="reset-button">RESET</button>
+      <div>
+        <button id="run-button">RUN</button>
+        <button id="reset-button">RESET</button>
+      </div>
+    </div>
 
     <script src="./main.js"></script>
     <script src="./djikstras.js"></script>

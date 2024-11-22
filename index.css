@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#form-parent {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}

@@ -1,12 +1,15 @@
 let arr = [];
 
-const gridSize = 35;
+let base = 2;
+let cells = Math.pow(base, 2);
 
 const width = 700;
 const height = 700;
 
-let source = { x: 1, y: 1 };
-let target = { x: 18, y: 18 };
+let gridSize = width / Math.sqrt(cells);
+
+let source = { x: 0, y: 0 };
+let target = { x: 1, y: 1 };
 
 let coords = { x: 0, y: 0 };
 
@@ -75,6 +78,7 @@ const main = () => {
 };
 
 window.addEventListener("load", () => {
+  resizeCanvas();
   main();
 });
 
@@ -98,6 +102,19 @@ document.getElementById("canvas").addEventListener("click", (e) => {
   }
 });
 
+const updateBase = (nBase) => {
+  base = nBase;
+  cells = Math.pow(base, 2);
+  gridSize = width / Math.sqrt(cells);
+  setupGrid();
+};
+
+document.getElementById("gridparams-form").onchange = (e) => {
+  const fd = new FormData(document.getElementById("gridparams-form"));
+
+  updateBase(Number(fd.get("cells")));
+};
+
 document.getElementById("canvas").addEventListener("mousemove", (e) => {
   coords = {
     x: Math.floor(e.offsetX / gridSize),
@@ -112,4 +129,14 @@ document.getElementById("run-button").onclick = (e) => {
 
 document.getElementById("reset-button").onclick = (e) => {
   reset();
+};
+
+window.addEventListener("resize", (e) => {
+  resizeCanvas();
+});
+
+const resizeCanvas = () => {
+  const canvas = document.getElementById("canvas");
+  canvas.width = width;
+  canvas.height = height;
 };
