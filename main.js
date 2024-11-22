@@ -5,6 +5,9 @@ const gridSize = 35;
 const width = 700;
 const height = 700;
 
+const source = { x: 1, y: 1 };
+const target = { x: 18, y: 18 };
+
 const setupGrid = () => {
   for (let i = 0; i < width / gridSize; i++) {
     arr[i] = [];
@@ -13,14 +16,15 @@ const setupGrid = () => {
     }
   }
 
-  arr[1][1] = "start";
-  arr[18][18] = "end";
+  arr[source.x][source.y] = "start";
+  arr[target.x][target.y] = "end";
 };
 
 const render = (ctx) => {
   for (let i = 0; i < width / gridSize; i++) {
     for (let j = 0; j < height / gridSize; j++) {
       const cur = arr[i][j];
+      console.log(cur);
       if (cur === "wall") {
         ctx.fillStyle = "rgb(255 255 255)";
       } else if (cur === "empty") {
@@ -38,32 +42,24 @@ const render = (ctx) => {
   }
 };
 
-const djikstras = (source) => {
+const djikstras = () => {
   console.log("Running Djikstra's algorithm.");
-
-  const toIndex = (x, y) => {
-    return x * (width / gridSize) + y;
-  };
-
-  const toCoord = (index) => {
-    return { x: Math.floor(index / (width / gridSize)), y: index % width };
-  };
 
   let dist = [];
   let prev = [];
 
   const Q = new Set();
 
-  for (let i = 0; i < width / gridSize; i++) {
-    arr[i] = [];
-    for (let j = 0; j < height / gridSize; j++) {
-      dist[toIndex(i, j)] = Number.MAX_SAFE_INTEGER;
-      prev[toIndex(i, j)] = undefined;
-      Q.add(toIndex(i, j));
-    }
-  }
+  const toIndex = (x, y) => {
+    return x * (width / gridSize) + y;
+  };
 
-  dist[toIndex(source[0], source[1])] = 0;
+  const toCoord = (index) => {
+    return {
+      x: Math.floor(index / (width / gridSize)),
+      y: index % (width / gridSize),
+    };
+  };
 
   const minFromDist = () => {
     let mn = undefined;
@@ -81,8 +77,6 @@ const djikstras = (source) => {
   const neighbors = (index) => {
     const coord = toCoord(index);
     let res = [];
-
-    console.log(coord);
 
     if (coord.x > 0) {
       res.push({ x: coord.x - 1, y: coord.y });
@@ -114,6 +108,16 @@ const djikstras = (source) => {
     }
   };
 
+  for (let i = 0; i < width / gridSize; i++) {
+    for (let j = 0; j < height / gridSize; j++) {
+      dist[toIndex(i, j)] = Number.MAX_SAFE_INTEGER;
+      prev[toIndex(i, j)] = undefined;
+      Q.add(toIndex(i, j));
+    }
+  }
+
+  dist[toIndex(source.x, source.y)] = 0;
+
   while (Q.size > 0) {
     let u = minFromDist();
     Q.delete(u);
@@ -130,8 +134,20 @@ const djikstras = (source) => {
     });
   }
 
-  console.log(dist);
-  console.log(prev);
+  const S = [];
+  let u = toIndex(target.x, target.y);
+
+  if (prev[u] || u == toIndex(source[0], source[1])) {
+    while (u !== undefined) {
+      S.push(u);
+      u = prev[u];
+    }
+  }
+
+  S.forEach((e) => {
+    const c = toCoord(e);
+    arr[c.x][c.y] = "searched";
+  });
 };
 
 const main = () => {
@@ -141,7 +157,8 @@ const main = () => {
   setupGrid();
 
   render(ctx);
-  djikstras([1, 1]);
+  djikstras();
+  render(ctx);
 };
 
 window.addEventListener("load", () => {
