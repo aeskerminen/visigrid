@@ -104,6 +104,11 @@ const djikstras = (source, target) => {
 
   S.forEach((e) => {
     const c = toCoord(e);
-    arr[c.x][c.y] = "searched";
+    if (
+      e !== toIndex(source.x, source.y) &&
+      e !== toIndex(target.x, target.y)
+    ) {
+      arr[c.x][c.y] = "searched";
+    }
   });
 };
