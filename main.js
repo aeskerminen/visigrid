@@ -45,6 +45,10 @@ const djikstras = (source) => {
     return x * (width / gridSize) + y;
   };
 
+  const toCoord = (index) => {
+    return { x: Math.floor(index / (width / gridSize)), y: index % width };
+  };
+
   let dist = [];
   let prev = [];
 
@@ -74,11 +78,60 @@ const djikstras = (source) => {
     return mn;
   };
 
+  const neighbors = (index) => {
+    const coord = toCoord(index);
+    let res = [];
+
+    console.log(coord);
+
+    if (coord.x > 0) {
+      res.push({ x: coord.x - 1, y: coord.y });
+    }
+    if (coord.x < width - 1) {
+      res.push({ x: coord.x + 1, y: coord.y });
+    }
+    if (coord.y > 0) {
+      res.push({ x: coord.x, y: coord.y - 1 });
+    }
+    if (coord.y < height - 1) {
+      res.push({ x: coord.x, y: coord.y + 1 });
+    }
+
+    return res;
+  };
+
+  const weight = (index) => {
+    const coord = toCoord(index);
+
+    const val = arr[coord.x][coord.y];
+
+    if (val === "wall") {
+      return 1;
+    } else if (val === "empty") {
+      return 0;
+    } else {
+      return 0;
+    }
+  };
+
   while (Q.size > 0) {
     let u = minFromDist();
     Q.delete(u);
-    console.log(Q.size);
+
+    neighbors(u).forEach((n) => {
+      const index = toIndex(n.x, n.y);
+      if (Q.has(index)) {
+        const alt = dist[u] + weight(index);
+        if (alt < dist[index]) {
+          dist[index] = alt;
+          prev[index] = u;
+        }
+      }
+    });
   }
+
+  console.log(dist);
+  console.log(prev);
 };
 
 const main = () => {
