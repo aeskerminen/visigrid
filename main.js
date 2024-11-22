@@ -101,7 +101,16 @@ document.getElementById("canvas").addEventListener("click", (e) => {
 
   const fd = new FormData(document.getElementById("live-form"));
 
-  arr[coords.x][coords.y] = fd.get("c");
+  const type = fd.get("c");
+
+  arr[coords.x][coords.y] = type;
+  if (type === "start") {
+    arr[source.x][source.y] = "empty";
+    source = coords;
+  } else if (type === "end") {
+    arr[target.x][target.y] = "empty";
+    target = coords;
+  }
 });
 
 document.getElementById("canvas").addEventListener("mousemove", (e) => {
