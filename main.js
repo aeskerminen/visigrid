@@ -84,7 +84,7 @@ document.getElementById("canvas").addEventListener("click", (e) => {
     y: Math.floor(e.offsetY / gridSize),
   };
 
-  const fd = new FormData(document.getElementById("live-form"));
+  const fd = new FormData(document.getElementById("liveedit-form"));
 
   const type = fd.get("c");
 
