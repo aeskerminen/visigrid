@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <script src="js/pixi.min.js"></script>
+    <meta charset="UTF-8" />
+    <title>Grid</title>
   </head>
   <body>
-    <script type="module">
-      // Create the application helper and add its render target to the page
-      const app = new PIXI.Application();
-      await app.init({ width: 640, height: 360, backgroundColor: 0xaaaaaa });
-      document.body.appendChild(app.view);
-    </script>
+    <canvas id="canvas" width="700" height="700"></canvas>
+    <script src="./main.js"></script>
   </body>
 </html>
