@@ -5,8 +5,8 @@ const gridSize = 35;
 const width = 700;
 const height = 700;
 
-const source = { x: 1, y: 1 };
-const target = { x: 18, y: 18 };
+let source = { x: 1, y: 1 };
+let target = { x: 18, y: 18 };
 
 const setupGrid = () => {
   for (let i = 0; i < width / gridSize; i++) {
@@ -24,7 +24,6 @@ const render = (ctx) => {
   for (let i = 0; i < width / gridSize; i++) {
     for (let j = 0; j < height / gridSize; j++) {
       const cur = arr[i][j];
-      console.log(cur);
       if (cur === "wall") {
         ctx.fillStyle = "rgb(255 255 255)";
       } else if (cur === "empty") {
@@ -164,3 +163,18 @@ const main = () => {
 window.addEventListener("load", () => {
   main();
 });
+
+document.getElementById("form").onsubmit = (e) => {
+  e.preventDefault();
+
+  const fd = new FormData(e.target);
+  console.log(fd);
+
+  const xc = Number(fd.xc);
+  const yc = Number(fd.yc);
+  const type = fd.type;
+
+  if (xc >= 0 && xc < width / gridSize && y >= 0 && y < height / gridSize) {
+    arr[xc][yc] = type;
+  }
+};
