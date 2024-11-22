@@ -41,6 +41,16 @@ const render = (ctx) => {
   }
 };
 
+const reset = () => {
+  for (let i = 0; i < width / gridSize; i++) {
+    for (let j = 0; j < height / gridSize; j++) {
+      if (arr[i][j] === "searched") {
+        arr[i][j] = "empty";
+      }
+    }
+  }
+};
+
 const main = () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
@@ -85,5 +95,10 @@ document.getElementById("canvas").addEventListener("click", (e) => {
 });
 
 document.getElementById("run-button").onclick = (e) => {
+  reset();
   djikstras(source, target);
+};
+
+document.getElementById("reset-button").onclick = (e) => {
+  reset();
 };
