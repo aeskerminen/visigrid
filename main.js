@@ -73,6 +73,17 @@ document.getElementById("form").onsubmit = (e) => {
   arr[xc][yc] = type;
 };
 
+document.getElementById("canvas").addEventListener("click", (e) => {
+  const coords = {
+    x: Math.floor(e.offsetX / gridSize),
+    y: Math.floor(e.offsetY / gridSize),
+  };
+
+  const fd = new FormData(document.getElementById("live-form"));
+
+  arr[coords.x][coords.y] = fd.get("c");
+});
+
 document.getElementById("run-button").onclick = (e) => {
   djikstras(source, target);
 };
