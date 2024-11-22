@@ -34,17 +34,25 @@ const djikstras = (source, target) => {
     const coord = toCoord(index);
     let res = [];
 
-    if (coord.x > 0) {
-      res.push({ x: coord.x - 1, y: coord.y });
+    const maxX = width / gridSize - 1;
+    const maxY = height / gridSize - 1;
+
+    const isValid = (x, y) => {
+      const val = arr[x][y];
+      return val !== "wall";
+    };
+
+    if (coord.x < maxX && isValid(coord.x + 1, coord.y)) {
+      res.push({ x: coord.x + 1, y: coord.y }); // Right
     }
-    if (coord.x < width - 1) {
-      res.push({ x: coord.x + 1, y: coord.y });
+    if (coord.y < maxY && isValid(coord.x, coord.y + 1)) {
+      res.push({ x: coord.x, y: coord.y + 1 }); // Down
     }
-    if (coord.y > 0) {
-      res.push({ x: coord.x, y: coord.y - 1 });
+    if (coord.x > 0 && isValid(coord.x - 1, coord.y)) {
+      res.push({ x: coord.x - 1, y: coord.y }); // Left
     }
-    if (coord.y < height - 1) {
-      res.push({ x: coord.x, y: coord.y + 1 });
+    if (coord.y > 0 && isValid(coord.x, coord.y - 1)) {
+      res.push({ x: coord.x, y: coord.y - 1 }); // Up
     }
 
     return res;
@@ -55,13 +63,7 @@ const djikstras = (source, target) => {
 
     const val = arr[coord.x][coord.y];
 
-    if (val === "wall") {
-      return Number.MAX_SAFE_INTEGER;
-    } else if (val === "empty") {
-      return 0;
-    } else {
-      return 0;
-    }
+    return 1;
   };
 
   for (let i = 0; i < width / gridSize; i++) {
