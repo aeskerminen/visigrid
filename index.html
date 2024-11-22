@@ -7,12 +7,28 @@
   <body>
     <canvas id="canvas" width="700" height="700"></canvas>
     <form id="form">
-      <input type="number" name="xc"/>
-      <input type="number" name="yc"/>
-      <input type="text" name="type"/>
+      <input type="number" name="xc" />
+      <input type="number" name="yc" />
+      <input type="text" name="type" />
       <button type="submit">ADD</button>
     </form>
     <button id="run-button">RUN</button>
+    <form id="live-form">
+      <fieldset >
+        <legend>Choose a type (Live edit)</legend>
+        <input type="radio" id="empty" name="c" value="empty" />
+        <label for="empty">Empty</label>
+
+        <input type="radio" id="wall" name="c" value="empty" />
+        <label for="wall">Wall</label>
+
+        <input type="radio" id="start" name="c" value="empty" />
+        <label for="start">Start</label>
+
+        <input type="radio" id="end" name="c" value="empty" />
+        <label for="end">End</label>
+      </fieldset>
+    </form>
     <script src="./main.js"></script>
     <script src="./djikstras.js"></script>
   </body>
