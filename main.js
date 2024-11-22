@@ -78,21 +78,6 @@ window.addEventListener("load", () => {
   main();
 });
 
-document.getElementById("form").onsubmit = (e) => {
-  e.preventDefault();
-
-  const fd = new FormData(e.target);
-  console.log(fd);
-
-  const xc = Number(fd.get("xc"));
-  const yc = Number(fd.get("yc"));
-  const type = fd.get("type");
-
-  console.log(xc, yc);
-
-  arr[xc][yc] = type;
-};
-
 document.getElementById("canvas").addEventListener("click", (e) => {
   const coords = {
     x: Math.floor(e.offsetX / gridSize),
