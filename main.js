@@ -3,6 +3,8 @@ let arr = [];
 let base = 2;
 let cells = Math.pow(base, 2);
 
+let diagonals = false;
+
 const width = 700;
 const height = 700;
 
@@ -113,6 +115,7 @@ document.getElementById("gridparams-form").onchange = (e) => {
   const fd = new FormData(document.getElementById("gridparams-form"));
 
   updateBase(Number(fd.get("cells")));
+  diagonals = fd.get("diagonal") === "on" ? true : false;
 };
 
 document.getElementById("canvas").addEventListener("mousemove", (e) => {
@@ -124,7 +127,7 @@ document.getElementById("canvas").addEventListener("mousemove", (e) => {
 
 document.getElementById("run-button").onclick = (e) => {
   reset();
-  djikstras(source, target);
+  djikstras(source, target, diagonals);
 };
 
 document.getElementById("reset-button").onclick = (e) => {

@@ -1,4 +1,4 @@
-const djikstras = (source, target) => {
+const djikstras = (source, target, diagonals) => {
   console.log("Running Djikstra's algorithm.");
 
   let dist = [];
@@ -53,6 +53,25 @@ const djikstras = (source, target) => {
     }
     if (coord.y > 0 && isValid(coord.x, coord.y - 1)) {
       res.push({ x: coord.x, y: coord.y - 1 }); // Up
+    }
+
+    if (diagonals) {
+      if (
+        coord.x < maxX &&
+        coord.y < maxY &&
+        isValid(coord.x + 1, coord.y + 1)
+      ) {
+        res.push({ x: coord.x + 1, y: coord.y + 1 }); // Down-Right
+      }
+      if (coord.x > 0 && coord.y < maxY && isValid(coord.x - 1, coord.y + 1)) {
+        res.push({ x: coord.x - 1, y: coord.y + 1 }); // Down-Left
+      }
+      if (coord.x < maxX && coord.y > 0 && isValid(coord.x + 1, coord.y - 1)) {
+        res.push({ x: coord.x + 1, y: coord.y - 1 }); // Up-Right
+      }
+      if (coord.x > 0 && coord.y > 0 && isValid(coord.x - 1, coord.y - 1)) {
+        res.push({ x: coord.x - 1, y: coord.y - 1 }); // Up-Left
+      }
     }
 
     return res;
