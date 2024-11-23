@@ -1,6 +1,6 @@
 let arr = [];
 
-let base = 2;
+let base = 10;
 let cells = Math.pow(base, 2);
 
 let diagonals = false;

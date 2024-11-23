@@ -42,19 +42,6 @@ const djikstras = (source, target, diagonals) => {
       return val !== "wall";
     };
 
-    if (coord.x < maxX && isValid(coord.x + 1, coord.y)) {
-      res.push({ x: coord.x + 1, y: coord.y }); // Right
-    }
-    if (coord.y < maxY && isValid(coord.x, coord.y + 1)) {
-      res.push({ x: coord.x, y: coord.y + 1 }); // Down
-    }
-    if (coord.x > 0 && isValid(coord.x - 1, coord.y)) {
-      res.push({ x: coord.x - 1, y: coord.y }); // Left
-    }
-    if (coord.y > 0 && isValid(coord.x, coord.y - 1)) {
-      res.push({ x: coord.x, y: coord.y - 1 }); // Up
-    }
-
     if (diagonals) {
       if (
         coord.x < maxX &&
@@ -72,6 +59,19 @@ const djikstras = (source, target, diagonals) => {
       if (coord.x > 0 && coord.y > 0 && isValid(coord.x - 1, coord.y - 1)) {
         res.push({ x: coord.x - 1, y: coord.y - 1 }); // Up-Left
       }
+    }
+
+    if (coord.x < maxX && isValid(coord.x + 1, coord.y)) {
+      res.push({ x: coord.x + 1, y: coord.y }); // Right
+    }
+    if (coord.y < maxY && isValid(coord.x, coord.y + 1)) {
+      res.push({ x: coord.x, y: coord.y + 1 }); // Down
+    }
+    if (coord.x > 0 && isValid(coord.x - 1, coord.y)) {
+      res.push({ x: coord.x - 1, y: coord.y }); // Left
+    }
+    if (coord.y > 0 && isValid(coord.x, coord.y - 1)) {
+      res.push({ x: coord.x, y: coord.y - 1 }); // Up
     }
 
     return res;
