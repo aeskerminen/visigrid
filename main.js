@@ -105,16 +105,20 @@ document.getElementById("canvas").addEventListener("click", (e) => {
 });
 
 const updateBase = (nBase) => {
-  base = nBase;
-  cells = Math.pow(base, 2);
-  gridSize = width / Math.sqrt(cells);
-  setupGrid();
+  if (nBase !== base) {
+    base = nBase;
+    cells = Math.pow(base, 2);
+    gridSize = width / Math.sqrt(cells);
+    setupGrid();
+  }
 };
 
 document.getElementById("gridparams-form").onchange = (e) => {
   const fd = new FormData(document.getElementById("gridparams-form"));
 
-  updateBase(Number(fd.get("cells")));
+  const newBase = Number(fd.get("cells"));
+
+  updateBase(newBase);
   diagonals = fd.get("diagonal") === "on" ? true : false;
 };
 
