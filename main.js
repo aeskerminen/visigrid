@@ -65,6 +65,16 @@ const reset = () => {
   }
 };
 
+const clear = () => {
+  for (let i = 0; i < width / gridSize; i++) {
+    for (let j = 0; j < height / gridSize; j++) {
+      if (arr[i][j] === "wall" || arr[i][j] === "searched") {
+        arr[i][j] = "empty";
+      }
+    }
+  }
+};
+
 const main = () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
@@ -136,6 +146,10 @@ document.getElementById("run-button").onclick = (e) => {
 
 document.getElementById("reset-button").onclick = (e) => {
   reset();
+};
+
+document.getElementById("clear-button").onclick = (e) => {
+  clear();
 };
 
 window.addEventListener("resize", (e) => {
